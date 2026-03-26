@@ -23,9 +23,11 @@ data/
 .DS_Store
 Thumbs.db
 
-# Claude Code local settings (may contain tokens/IPs)
+# Claude Code files (internal AI assistant tooling)
 .claude/
+CLAUDE.md
 
 # IDE
 .idea/
 .vscode/
+.claude/
