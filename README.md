@@ -282,6 +282,15 @@ node server.js   # Express server on port 3001
 
 ## Troubleshooting
 
+### Dashboard can't restart the connector (permission denied on Docker socket)
+
+On Linux, the dashboard container needs access to `/var/run/docker.sock`. If you see a permission error, add your user to the `docker` group:
+
+```bash
+sudo usermod -aG docker $USER
+# then log out and back in
+```
+
 ### Connector doesn't pick up documents
 
 - Verify the `TAG_NEW` tag exists in Paperless (the connector creates it automatically on startup)
