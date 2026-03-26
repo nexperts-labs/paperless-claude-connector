@@ -1,0 +1,31 @@
+# Secrets – niemals committen
+.env
+.env.local
+
+# Python
+*.pyc
+__pycache__/
+.python-version
+.venv/
+venv/
+
+# Node / Dashboard Build
+node_modules/
+build/
+dist/
+dashboard/dist/
+
+# Runtime-Daten
+data/
+
+# Logs & OS
+*.log
+.DS_Store
+Thumbs.db
+
+# Claude Code local settings (may contain tokens/IPs)
+.claude/
+
+# IDE
+.idea/
+.vscode/

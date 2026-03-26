@@ -1,0 +1,51 @@
+services:
+  connector:
+    build:
+      context: ./connector
+      dockerfile: Dockerfile
+    container_name: paperless-claude-connector
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - connector-data:/data
+    networks:
+      - connector-net
+    depends_on: []
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    container_name: paperless-claude-dashboard
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    volumes:
+      - connector-data:/data:rw
+      - ./.env:/config/settings.env:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - connector-net
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - DATA_DIR=/data
+      - SETTINGS_FILE=/config/settings.env
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  connector-data:
+    driver: local
+
+networks:
+  connector-net:
+    driver: bridge
